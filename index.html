@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greenyard Restaurant - Gaborone, Botswana</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #1a1a2e 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .glossy-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255,255,255,0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 60px 0;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .header-content {
+            text-align: center;
+            position: relative;
+        }
+
+        .logo-icon {
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #90c695 0%, #7bb37f 50%, #6aa36f 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 0 8px 25px rgba(144, 198, 149, 0.3);
+            border: 3px solid rgba(255,255,255,0.2);
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .navigation {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 20px;
+            z-index: 10;
+        }
+
+        .nav-button {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-button:hover {
+            background: rgba(144, 198, 149, 0.3);
+            border-color: rgba(144, 198, 149, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(144, 198, 149, 0.2);
+            color: #ffffff;
+        }
+
+        .nav-button:active {
+            transform: translateY(0);
+        }
+
+        .logo {
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .tagline {
+            font-size: 1.4rem;
+            color: #b0b0b0;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .location {
+            font-size: 1.2rem;
+            color: #90c695;
+            font-weight: 500;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 80px 0;
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            margin-bottom: 60px;
+            backdrop-filter: blur(5px);
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #90c695 0%, #7bb37f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.3rem;
+            color: #d0d0d0;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .menu-section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 50px;
+            color: #90c695;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .menu-item {
+            background: rgba(255,255,255,0.08);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.12);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .menu-item:hover::before {
+            left: 100%;
+        }
+
+        .menu-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #90c695 0%, #7bb37f 50%, #6aa36f 100%);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-image::after {
+            content: '🍽️';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            opacity: 0.7;
+        }
+
+        .menu-image.pasta::after {
+            content: '🍝';
+        }
+
+        .menu-image.beef::after {
+            content: '🥩';
+        }
+
+        .menu-image.seafood::after {
+            content: '🦐';
+        }
+
+        .menu-image.salad::after {
+            content: '🥗';
+        }
+
+        .menu-image.traditional::after {
+            content: '🍛';
+        }
+
+        .menu-image.dessert::after {
+            content: '🍰';
+        }
+
+        .menu-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .menu-description {
+            color: #c0c0c0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .contact-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            margin: 60px 0;
+        }
+
+        .contact-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #90c695;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .contact-item {
+            background: rgba(255,255,255,0.08);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-3px);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .contact-label {
+            font-size: 1.2rem;
+            color: #90c695;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .contact-value {
+            font-size: 1.1rem;
+            color: #ffffff;
+        }
+
+        .contact-value a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-value a:hover {
+            color: #90c695;
+        }
+
+        .testimonials-section {
+            padding: 60px 0;
+            margin: 60px 0;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .testimonial-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.12);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .testimonial-text {
+            font-size: 1.2rem;
+            color: #e0e0e0;
+            font-style: italic;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .testimonial-text::before {
+            content: '"';
+            font-size: 3rem;
+            color: #90c695;
+            position: absolute;
+            left: -10px;
+            top: -15px;
+            opacity: 0.5;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #90c695 0%, #7bb37f 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        .author-info h4 {
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .author-info p {
+            color: #b0b0b0;
+            font-size: 0.95rem;
+        }
+
+        .rating {
+            display: flex;
+            gap: 3px;
+            margin-top: 15px;
+        }
+
+        .star {
+            color: #ffd700;
+            font-size: 1.2rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #b0b0b0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 60px;
+        }
+
+        .footer-text {
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3rem;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-description {
+                font-size: 1.1rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+                top: -10px;
+                left: 10px;
+            }
+            
+            .navigation {
+                position: static;
+                justify-content: center;
+                margin-bottom: 20px;
+                right: auto;
+                top: auto;
+            }
+            
+            .nav-button {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="glossy-overlay"></div>
+    
+    <header>
+        <div class="container">
+            <div class="logo-icon">🌿</div>
+            <nav class="navigation">
+                <a href="#about" class="nav-button">About</a>
+                <a href="#contact" class="nav-button">Contact Us</a>
+                <a href="#services" class="nav-button">Services</a>
+            </nav>
+            <div class="header-content">
+                <h1 class="logo">Greenyard Restaurant</h1>
+                <p class="tagline">Where fresh meets flavor</p>
+                <p class="location">📍 Gaborone, Botswana</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="hero-section" id="about">
+                <h2 class="hero-title">Experience Culinary Excellence</h2>
+                <p class="hero-description">
+                    Welcome to Greenyard Restaurant, where we serve the finest cuisine in the heart of Gaborone. 
+                    Our passionate chefs create memorable dining experiences with fresh, locally-sourced ingredients 
+                    and innovative cooking techniques that celebrate both traditional and contemporary flavors.
+                </p>
+            </section>
+
+            <section class="menu-section" id="services">
+                <h2 class="section-title">Our Signature Dishes</h2>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-image beef"></div>
+                        <h3 class="menu-name">Botswana Beef Tenderloin</h3>
+                        <p class="menu-description">
+                            Premium locally-sourced beef tenderloin, grilled to perfection and served with 
+                            seasonal vegetables and our signature herb butter sauce.
+                        </p>
+                    </div>
+                    
+                    <div class="menu-item">
+                        <div class="menu-image seafood"></div>
+                        <h3 class="menu-name">Kalahari Seafood Platter</h3>
+                        <p class="menu-description">
+                            Fresh catch of the day featuring prawns, calamari, and fish fillet, 
+                            prepared with aromatic spices and served with rice pilaf.
+                        </p>
+                    </div>
+                    
+                    <div class="menu-item">
+                        <div class="menu-image salad"></div>
+                        <h3 class="menu-name">Garden Fresh Salad Bowl</h3>
+                        <p class="menu-description">
+                            Crisp mixed greens, cherry tomatoes, avocado, and seasonal fruits 
+                            with our house-made vinaigrette and toasted seeds.
+                        </p>
+                    </div>
+                    
+                    <div class="menu-item">
+                        <div class="menu-image traditional"></div>
+                        <h3 class="menu-name">Traditional Setswana Platter</h3>
+                        <p class="menu-description">
+                            Authentic local cuisine featuring seswaa, pap, morogo, and traditional 
+                            sides that celebrate the rich culinary heritage of Botswana.
+                        </p>
+                    </div>
+                    
+                    <div class="menu-item">
+                        <div class="menu-image pasta"></div>
+                        <h3 class="menu-name">Gourmet Pasta Selection</h3>
+                        <p class="menu-description">
+                            Handcrafted pasta with your choice of creamy mushroom, spicy arrabbiata, 
+                            or classic carbonara sauce, topped with fresh herbs and parmesan.
+                        </p>
+                    </div>
+                    
+                    <div class="menu-item">
+                        <div class="menu-image dessert"></div>
+                        <h3 class="menu-name">Decadent Dessert Trio</h3>
+                        <p class="menu-description">
+                            Indulge in our chef's selection of three exquisite desserts: 
+                            chocolate lava cake, vanilla panna cotta, and seasonal fruit tart.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="testimonials-section">
+                <h2 class="section-title">What Our Guests Say</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">
+                            Absolutely outstanding dining experience! The pasta was cooked to perfection, 
+                            and the atmosphere was simply magical. Greenyard Restaurant has become our 
+                            favorite place for special occasions.
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">T</div>
+                            <div class="author-info">
+                                <h4>Thabo Molefe</h4>
+                                <p>Gaborone Local</p>
+                            </div>
+                        </div>
+                        <div class="rating">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">
+                            The traditional Setswana platter was incredible - authentic flavors that 
+                            reminded me of home. The service was exceptional, and the ambiance was 
+                            perfect for our family dinner.
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">N</div>
+                            <div class="author-info">
+                                <h4>Neo Kgosimore</h4>
+                                <p>Food Enthusiast</p>
+                            </div>
+                        </div>
+                        <div class="rating">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">
+                            Best restaurant in Gaborone! The beef tenderloin melted in my mouth, 
+                            and the presentation was restaurant-quality. Will definitely be coming 
+                            back with friends and family.
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">L</div>
+                            <div class="author-info">
+                                <h4>Lesego Mothibi</h4>
+                                <p>Business Professional</p>
+                            </div>
+                        </div>
+                        <div class="rating">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">
+                            Fresh ingredients, creative presentation, and flavors that dance on your 
+                            tongue. The seafood platter was exceptional, and the dessert trio was 
+                            the perfect ending to a memorable meal.
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">K</div>
+                            <div class="author-info">
+                                <h4>Kelebogile Serame</h4>
+                                <p>Food Blogger</p>
+                            </div>
+                        </div>
+                        <div class="rating">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">
+                            Greenyard Restaurant exceeded all expectations! The pasta selection was 
+                            divine, each sauce perfectly balanced. The staff made us feel like VIPs. 
+                            This is fine dining at its best in Botswana.
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">M</div>
+                            <div class="author-info">
+                                <h4>Masego Tsheko</h4>
+                                <p>Regular Customer</p>
+                            </div>
+                        </div>
+                        <div class="rating">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">
+                            A culinary gem in the heart of Gaborone! Every dish tells a story, 
+                            and the attention to detail is remarkable. The garden salad was so 
+                            fresh and vibrant - you can taste the quality.
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">B</div>
+                            <div class="author-info">
+                                <h4>Boitumelo Kgomo</h4>
+                                <p>Local Resident</p>
+                            </div>
+                        </div>
+                        <div class="rating">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="contact-section" id="contact">
+                <h2 class="contact-title">Visit Us Today</h2>
+                <p style="font-size: 1.2rem; color: #d0d0d0; margin-bottom: 20px;">
+                    Experience exceptional dining in the heart of Gaborone
+                </p>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div class="contact-label">Phone</div>
+                        <div class="contact-value">
+                            <a href="tel:+26773047067">+267 730 47067</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-label">Email</div>
+                        <div class="contact-value">
+                            <a href="mailto:greenyard@gmail.com">greenyard@gmail.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-label">Location</div>
+                        <div class="contact-value">Gaborone, Botswana</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p class="footer-text">© 2024 Greenyard Restaurant. Creating memorable dining experiences in Gaborone.</p>
+        </div>
+    </footer>
+</body>
+</html>
